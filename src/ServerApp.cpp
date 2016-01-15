@@ -38,7 +38,25 @@ void ServerApp::setup()
 	setWindowPos(ivec2(mVDSettings->mRenderX, mVDSettings->mRenderY));
 	// tempo init
 	mVDUtils->tapTempo();
+	// UnionJack
+	Color light = Color8u::hex(0x42a1eb);
+	Color dark = Color8u::hex(0x082f4d);
+	vec2 padding(200);
 
+	mDisplays = {
+		UnionJack(11).display("FPS").scale(3).position(padding)
+		.colors(Color8u::hex(0xf00000), Color8u::hex(0x530000)),
+		// Let's print out the full ASCII table as a font specimen
+		UnionJack(33).display(" !\"#$%&'()*+,-./0123456789:;<=>?").colors(light, dark),
+		UnionJack(33).display("@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\\]^_").colors(light, dark),
+		UnionJack(33).display("`abcdefghijklmnopqrstuvwxyz{|}~\x7F").colors(light, dark),
+	};
+	// Position the displays relative to each other.
+	mDisplays[1].below(mDisplays[0]);
+	mDisplays[2].below(mDisplays[1]);
+	mDisplays[3].below(mDisplays[2]);
+
+	setWindowSize(padding + mDisplays[3].calcBoundingBox().getLowerRight());
 }
 
 void ServerApp::mpeReset()
@@ -68,11 +86,36 @@ void ServerApp::mpeFrameUpdate(long serverFrameNumber)
 	mServerFramesProcessed = serverFrameNumber;
 
 }
-
+void ServerApp::shift_left(std::size_t offset, std::size_t X)
+{
+	std::rotate(std::next(str.begin(), offset),
+		std::next(str.begin(), offset + X),
+		str.end());
+	str = str.substr(0, str.size() - X);
+}
 void ServerApp::draw()
 {
-	gl::clear();
+	gl::clear(Color::black());
+	// MPE
 	mClient->draw();
+	// UnionJack
+	str = "VIDEODROMM  VIDEODROMM  VIDEODROMM";// loops on 12
+	int sz = int(getElapsedFrames() / 20.0) % 13;
+	shift_left(0, sz);
+	mDisplays[0].display(str);
+	mDisplays[1].display(
+		toString(sz)
+		);
+	mDisplays[2].display(
+		mVDSettings->mMsg
+		);
+	mDisplays[3]
+		.display("FPS " + mVDSettings->sFps)//+ 
+		.colors(ColorA(mVDSettings->iFps < 50 ? mRed : mBlue, 0.8), ColorA(mDarkBlue, 0.8));
+
+	for (auto display = mDisplays.begin(); display != mDisplays.end(); ++display) {
+		display->draw();
+	}
 	//imgui
 	gl::setMatricesWindow(getWindowSize());
 	xPos = margin;
@@ -271,5 +314,5 @@ void ServerApp::cleanup()
 #if defined( CINDER_COCOA_TOUCH )
 CINDER_APP(ServerApp, RendererGl(RendererGl::AA_NONE))
 #else
-CINDER_APP(ServerApp, RendererGl)
+CINDER_APP(ServerApp, RendererGl(RendererGl::Options().msaa(16)))
 #endif

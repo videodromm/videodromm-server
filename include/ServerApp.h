@@ -14,6 +14,8 @@
 #include "VDRouter.h"
 // Console
 #include "AppConsole.h"
+// UnionJack
+#include "UnionJack.h"
 
 using namespace ci;
 using namespace ci::app;
@@ -66,5 +68,13 @@ public:
 	AppConsoleRef				mConsole;
 	bool						showConsole;
 	void						ShowAppConsole(bool* opened);
+	// UnionJack
+	vector<UnionJack>			mDisplays;
+	std::string					str;
+	void						shift_left(std::size_t offset, std::size_t X);
+	Color						mBlack = Color::black();
+	Color						mBlue = Color8u(66, 161, 235);
+	Color						mDarkBlue = Color8u::hex(0x1A3E5A);
+	Color						mRed = Color8u(240, 0, 0);
 
 };
