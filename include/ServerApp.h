@@ -10,6 +10,8 @@
 #include "VDSettings.h"
 // Utils
 #include "VDUtils.h"
+// Message router
+#include "VDRouter.h"
 // Console
 #include "AppConsole.h"
 
@@ -39,12 +41,14 @@ public:
 	void 						updateWindowTitle();
 
 	// Most Pixels Ever
-	//MPEClientRef				mClient;
+	MPEClientRef				mClient;
 	long						mServerFramesProcessed;
 	// Settings
 	VDSettingsRef				mVDSettings;
 	// Utils
 	VDUtilsRef					mVDUtils;
+	// Message router
+	VDRouterRef					mVDRouter;
 	// imgui
 	int							w;
 	int							h;
@@ -57,6 +61,7 @@ public:
 	int							largePreviewH;
 	int							margin;
 	int							inBetween;
+	char						buf[64];
 	// console
 	AppConsoleRef				mConsole;
 	bool						showConsole;

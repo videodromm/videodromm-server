@@ -91,6 +91,9 @@
     <Filter Include="Blocks\UnionJack\src">
       <UniqueIdentifier>{08B66458-585B-4632-989E-2BFCDC076521}</UniqueIdentifier>
     </Filter>
+    <Filter Include="assets">
+      <UniqueIdentifier>{3be61d51-c49c-4914-b08d-2aca5c0605af}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\src\ServerApp.cpp">
@@ -318,6 +321,9 @@
     <ClCompile Include="..\src\AppConsole.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\..\Cinder\blocks\Cinder-Videodromm\src\VDRouter.cpp">
+      <Filter>Blocks\Videodromm\src</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\include\Resources.h">
@@ -329,10 +335,18 @@
     <ClInclude Include="..\include\AppConsole.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="..\..\..\Cinder\blocks\Cinder-Videodromm\include\VDRouter.h">
+      <Filter>Blocks\Videodromm\include</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="Resources.rc">
       <Filter>Resource Files</Filter>
     </ResourceCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <Xml Include="..\assets\settings.xml">
+      <Filter>assets</Filter>
+    </Xml>
   </ItemGroup>
 </Project>
