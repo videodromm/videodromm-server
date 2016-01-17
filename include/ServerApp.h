@@ -1,6 +1,8 @@
 #include "cinder/app/App.h"
 #include "cinder/app/RendererGl.h"
 #include "cinder/gl/gl.h"
+
+// Most Pixels Ever
 #include "MPEApp.hpp"
 #include "MPEClient.h"
 
@@ -43,7 +45,7 @@ public:
 	void 						updateWindowTitle();
 
 	// Most Pixels Ever
-	MPEClientRef				mClient;
+	//MPEClientRef				mClient;
 	long						mServerFramesProcessed;
 	// Settings
 	VDSettingsRef				mVDSettings;

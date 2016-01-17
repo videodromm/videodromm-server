@@ -94,6 +94,12 @@
     <Filter Include="assets">
       <UniqueIdentifier>{3be61d51-c49c-4914-b08d-2aca5c0605af}</UniqueIdentifier>
     </Filter>
+    <Filter Include="debug">
+      <UniqueIdentifier>{052c398b-b15d-45cd-b6e2-3fbc197575c4}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="release">
+      <UniqueIdentifier>{3c75e4d1-c3f4-4083-b326-e5209a6eebb6}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\src\ServerApp.cpp">
@@ -345,8 +351,11 @@
     </ResourceCompile>
   </ItemGroup>
   <ItemGroup>
-    <Xml Include="..\assets\settings.xml">
+    <Xml Include="..\..\assets\settings.xml">
       <Filter>assets</Filter>
+    </Xml>
+    <Xml Include="Debug\VDSettings.xml">
+      <Filter>debug</Filter>
     </Xml>
   </ItemGroup>
 </Project>

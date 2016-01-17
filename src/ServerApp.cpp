@@ -16,7 +16,7 @@ void ServerApp::setup()
 
 	// MPE
 	mServerFramesProcessed = 0;
-	mClient = MPEClient::create(this);
+	//mClient = MPEClient::create(this);
 	// imgui
 	margin = 3;
 	inBetween = 3;
@@ -35,7 +35,7 @@ void ServerApp::setup()
 	updateWindowTitle();
 	int w = mVDUtils->getWindowsResolution();
 	setWindowSize(mVDSettings->mRenderWidth, mVDSettings->mRenderHeight);
-	setWindowPos(ivec2(mVDSettings->mRenderX, mVDSettings->mRenderY));
+	setWindowPos(ivec2(0, 50));
 	// tempo init
 	mVDUtils->tapTempo();
 	// UnionJack
@@ -57,6 +57,7 @@ void ServerApp::setup()
 	mDisplays[3].below(mDisplays[2]);
 
 	setWindowSize(padding + mDisplays[3].calcBoundingBox().getLowerRight());
+	setFrameRate(5.0f);
 }
 
 void ServerApp::mpeReset()
@@ -72,10 +73,10 @@ void ServerApp::update()
 	mVDSettings->sFps = toString(floor(mVDSettings->iFps));
 	updateWindowTitle();
 
-	if (!mClient->isConnected() && (getElapsedFrames() % 60) == 0)
+	/*if (!mClient->isConnected() && (getElapsedFrames() % 60) == 0)
 	{
 		mClient->start();
-	}
+	}*/
 }
 void ServerApp::updateWindowTitle()
 {
@@ -97,7 +98,7 @@ void ServerApp::draw()
 {
 	gl::clear(Color::black());
 	// MPE
-	mClient->draw();
+	//mClient->draw();
 	// UnionJack
 	str = "VIDEODROMM  VIDEODROMM  VIDEODROMM";// loops on 12
 	int sz = int(getElapsedFrames() / 20.0) % 13;
@@ -308,11 +309,12 @@ void ServerApp::cleanup()
 	mVDSettings->save();
 	ui::Shutdown();
 }
+
 // If you're deploying to iOS, set the Render antialiasing to 0 for a significant
 // performance improvement. This value defaults to 4 (AA_MSAA_4) on iOS and 16 (AA_MSAA_16)
 // on the Desktop.
-#if defined( CINDER_COCOA_TOUCH )
-CINDER_APP(ServerApp, RendererGl(RendererGl::AA_NONE))
-#else
-CINDER_APP(ServerApp, RendererGl(RendererGl::Options().msaa(16)))
-#endif
+//CINDER_APP(ServerApp, RendererGl(RendererGl::AA_NONE))
+CINDER_APP(ServerApp, RendererGl(RendererGl::Options().msaa(4)))
+
+
+
