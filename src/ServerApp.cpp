@@ -88,7 +88,7 @@ void ServerApp::draw()
 #pragma region MIDI
 
 	// MIDI window
-
+/* MAC rtmidi FIX TODO
 	ui::SetNextWindowSize(ImVec2(largeW, largeH), ImGuiSetCond_Once);
 	ui::SetNextWindowPos(ImVec2(xPos, yPos), ImGuiSetCond_Once);
 	ui::Begin("MIDI");
@@ -134,7 +134,7 @@ void ServerApp::draw()
 	}
 	ui::End();
 	xPos += largeW + margin;
-
+*/
 #pragma endregion MIDI
 
 #pragma region OSC

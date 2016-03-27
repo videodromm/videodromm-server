@@ -433,9 +433,7 @@ dependencies: \
   ../../../Cinder/include/cinder/Log.h \
   ../../../Cinder/include/cinder/System.h \
   ../../../Cinder/blocks/Cinder-Videodromm/include/Watchdog.h \
-  /Users/dev/cpp/Cinder/blocks/Cinder-MIDI2/include/CinderMidi.h \
-  /Users/dev/cpp/Cinder/blocks/Cinder-MIDI2/lib/RtMidi.h \
-  ../../../Cinder/blocks/OSC/src/Osc.h \
+  /Users/dev/cpp/Cinder/blocks/OSC/src/Osc.h \
   ../../../Cinder/include/asio/asio.hpp \
   ../../../Cinder/include/asio/async_result.hpp \
   ../../../Cinder/include/asio/detail/config.hpp \

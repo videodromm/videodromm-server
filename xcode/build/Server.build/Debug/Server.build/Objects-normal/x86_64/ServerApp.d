@@ -436,7 +436,7 @@ dependencies: \
   ../../../Cinder/blocks/Cinder-Videodromm/include/VDLog.h \
   ../../../Cinder/include/cinder/Log.h \
   ../../../Cinder/include/cinder/System.h \
-  ../../../Cinder/blocks/Cinder-Videodromm/include/VDAnimation.h \
+  /Users/dev/cpp/Cinder/blocks/Cinder-Videodromm/include/VDAnimation.h \
   ../../../Cinder/blocks/Cinder-Videodromm/include/LiveParam.h \
   ../../../Cinder/blocks/Cinder-Videodromm/include/Watchdog.h \
   ../../../Cinder/blocks/Cinder-Videodromm/include/VDShaders.h \
@@ -444,9 +444,7 @@ dependencies: \
   ../../../Cinder/include/cinder/CinderResources.h \
   ../../../Cinder/blocks/Cinder-Videodromm/include/VDFbo.h \
   /Users/dev/cpp/Cinder/blocks/Cinder-Videodromm/include/VDRouter.h \
-  /Users/dev/cpp/Cinder/blocks/Cinder-MIDI2/include/CinderMidi.h \
-  /Users/dev/cpp/Cinder/blocks/Cinder-MIDI2/lib/RtMidi.h \
-  ../../../Cinder/blocks/OSC/src/Osc.h \
+  /Users/dev/cpp/Cinder/blocks/OSC/src/Osc.h \
   ../../../Cinder/include/asio/asio.hpp \
   ../../../Cinder/include/asio/async_result.hpp \
   ../../../Cinder/include/asio/detail/config.hpp \

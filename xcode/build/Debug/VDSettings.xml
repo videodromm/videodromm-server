@@ -3,11 +3,11 @@
 	<AutoLayout value="1"/>
 	<Standalone value="0"/>
 	<MainWindowWidth value="1280"/>
-	<MainWindowHeight value="720"/>
+	<MainWindowHeight value="800"/>
 	<MainWindowX value="0"/>
 	<MainWindowY value="0"/>
-	<RenderWidth value="1024"/>
-	<RenderHeight value="768"/>
+	<RenderWidth value="1280"/>
+	<RenderHeight value="800"/>
 	<RenderX value="0"/>
 	<RenderY value="0"/>
 	<AspectRatio value="0.75"/>
