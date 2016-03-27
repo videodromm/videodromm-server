@@ -3,20 +3,19 @@
 
 void ServerApp::setup()
 {
-	// parameters
-	mVDSettings = VDSettings::create();
-	mVDSettings->mLiveCode = false;
-	mVDSettings->mRenderThumbs = false;
-	// utils
-	mVDUtils = VDUtils::create(mVDSettings);
-	// Message router
-	mVDRouter = VDRouter::create(mVDSettings);
+    // Settings
+    mVDSettings = VDSettings::create();
+    mVDSettings->mLiveCode = false;
+    mVDSettings->mRenderThumbs = false;
+    mVDSession = VDSession::create(mVDSettings);
+    // Utils
+    mVDUtils = VDUtils::create(mVDSettings);
 	// instanciate the console class
-	mConsole = AppConsole::create(mVDSettings, mVDUtils);
+	mVDAnimation = VDAnimation::create(mVDSettings, mVDSession);
+	// Message router
+	mVDRouter = VDRouter::create(mVDSettings, mVDAnimation, mVDSession);
 
-	// MPE
-	mServerFramesProcessed = 0;
-	//mClient = MPEClient::create(this);
+
 	// imgui
 	margin = 3;
 	inBetween = 3;
@@ -27,44 +26,19 @@ void ServerApp::setup()
 	largeH = (mVDSettings->mPreviewFboHeight + margin) * 5;
 	largePreviewW = mVDSettings->mPreviewWidth + margin;
 	largePreviewH = (mVDSettings->mPreviewHeight + margin) * 2.4;
-	displayHeight = mVDSettings->mMainDisplayHeight - 50;
 
-	showConsole = true;
 	ui::initialize();
 
 	updateWindowTitle();
 	int w = mVDUtils->getWindowsResolution();
 	setWindowSize(mVDSettings->mRenderWidth, mVDSettings->mRenderHeight);
 	setWindowPos(ivec2(0, 50));
-	// tempo init
-	mVDUtils->tapTempo();
-	// UnionJack
-	Color light = Color8u::hex(0x42a1eb);
-	Color dark = Color8u::hex(0x082f4d);
-	vec2 padding(200);
+    //  bpm = 180.0f;
+    //setFrameRate(mVDSession->getTargetFps());
+	
 
-	mDisplays = {
-		UnionJack(11).display("FPS").scale(3).position(padding)
-		.colors(Color8u::hex(0xf00000), Color8u::hex(0x530000)),
-		// Let's print out the full ASCII table as a font specimen
-		UnionJack(33).display(" !\"#$%&'()*+,-./0123456789:;<=>?").colors(light, dark),
-		UnionJack(33).display("@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\\]^_").colors(light, dark),
-		UnionJack(33).display("`abcdefghijklmnopqrstuvwxyz{|}~\x7F").colors(light, dark),
-	};
-	// Position the displays relative to each other.
-	mDisplays[1].below(mDisplays[0]);
-	mDisplays[2].below(mDisplays[1]);
-	mDisplays[3].below(mDisplays[2]);
-
-	setWindowSize(padding + mDisplays[3].calcBoundingBox().getLowerRight());
-	setFrameRate(5.0f);
-}
-
-void ServerApp::mpeReset()
-{
-	// Reset the state of your app.
-	// This will be called when any client connects.
-	mServerFramesProcessed = 0;
+	setWindowSize(640, 480);
+	setFrameRate(12.0f);
 }
 
 void ServerApp::update()
@@ -72,51 +46,15 @@ void ServerApp::update()
 	mVDSettings->iFps = getAverageFps();
 	mVDSettings->sFps = toString(floor(mVDSettings->iFps));
 	updateWindowTitle();
-
-	/*if (!mClient->isConnected() && (getElapsedFrames() % 60) == 0)
-	{
-		mClient->start();
-	}*/
 }
 void ServerApp::updateWindowTitle()
 {
-	getWindow()->setTitle("(" + mVDSettings->sFps + " fps) " + toString(mServerFramesProcessed));
-}
-void ServerApp::mpeFrameUpdate(long serverFrameNumber)
-{
-	mServerFramesProcessed = serverFrameNumber;
-
-}
-void ServerApp::shift_left(std::size_t offset, std::size_t X)
-{
-	std::rotate(std::next(str.begin(), offset),
-		std::next(str.begin(), offset + X),
-		str.end());
-	str = str.substr(0, str.size() - X);
+	getWindow()->setTitle("(" + mVDSettings->sFps + " fps) Server");
 }
 void ServerApp::draw()
 {
 	gl::clear(Color::black());
-	// MPE
-	//mClient->draw();
-	// UnionJack
-	str = "VIDEODROMM  VIDEODROMM  VIDEODROMM";// loops on 12
-	int sz = int(getElapsedFrames() / 20.0) % 13;
-	shift_left(0, sz);
-	mDisplays[0].display(str);
-	mDisplays[1].display(
-		toString(sz)
-		);
-	mDisplays[2].display(
-		mVDSettings->mMsg
-		);
-	mDisplays[3]
-		.display("FPS " + mVDSettings->sFps)//+ 
-		.colors(ColorA(mVDSettings->iFps < 50 ? mRed : mBlue, 0.8), ColorA(mDarkBlue, 0.8));
-
-	for (auto display = mDisplays.begin(); display != mDisplays.end(); ++display) {
-		display->draw();
-	}
+	
 	//imgui
 	gl::setMatricesWindow(getWindowSize());
 	xPos = margin;
@@ -155,8 +93,7 @@ void ServerApp::draw()
 	ui::SetNextWindowPos(ImVec2(xPos, yPos), ImGuiSetCond_Once);
 	ui::Begin("MIDI");
 	{
-		sprintf_s(buf, "Enable");
-		if (ui::Button(buf)) mVDRouter->midiSetup();
+		if (ui::Button("Enable")) mVDRouter->midiSetup();
 		if (ui::CollapsingHeader("MidiIn", "20", true, true))
 		{
 			ui::Columns(2, "data", true);
@@ -170,11 +107,12 @@ void ServerApp::draw()
 
 				if (mVDRouter->isMidiInConnected(i))
 				{
-					sprintf_s(buf, "Disconnect %d", i);
+                    ui::Text("Disconnect %d", i);
 				}
 				else
 				{
-					sprintf_s(buf, "Connect %d", i);
+                    ui::Text("Connect %d", i);
+
 				}
 
 				if (ui::Button(buf))
@@ -215,13 +153,7 @@ void ServerApp::draw()
 			ui::Text(" on port %d", mVDSettings->mOSCDestinationPort2);
 			ui::Text(" Receiving on port %d", mVDSettings->mOSCReceiverPort);
 
-			static char str0[128] = "/live/play";
-			static int i0 = 0;
-			static float f0 = 0.0f;
-			ui::InputText("address", str0, IM_ARRAYSIZE(str0));
-			ui::InputInt("track", &i0);
-			ui::InputFloat("clip", &f0, 0.01f, 1.0f);
-			if (ui::Button("Send")) { mVDRouter->sendOSCIntMessage(str0, i0); }
+			
 		}
 		ui::End();
 
@@ -234,7 +166,7 @@ void ServerApp::draw()
 
 	ui::SetNextWindowSize(ImVec2(largePreviewW, largeH), ImGuiSetCond_Once);
 	ui::SetNextWindowPos(ImVec2(xPos, yPos), ImGuiSetCond_Once);
-	sprintf_s(buf, "Fps %c %d###fps", "|/-\\"[(int)(ImGui::GetTime() / 0.25f) & 3], (int)mVDSettings->iFps);
+    ui::Text( "Fps %c %d###fps", "|/-\\"[(int)(ImGui::GetTime() / 0.25f) & 3], (int)mVDSettings->iFps);
 	ui::Begin(buf);
 	{
 		ImGui::PushItemWidth(mVDSettings->mPreviewFboWidth);
@@ -265,29 +197,8 @@ void ServerApp::draw()
 	yPos += largeH + margin;
 #pragma endregion Info
 
-	// console
-	if (showConsole)
-	{
-		ui::SetNextWindowSize(ImVec2((largeW + margin) * 3, largePreviewH), ImGuiSetCond_Once);
-		ui::SetNextWindowPos(ImVec2(xPos, yPos), ImGuiSetCond_Once);
-		ShowAppConsole(&showConsole);
-		if (mVDSettings->newMsg)
-		{
-			mVDSettings->newMsg = false;
-			mConsole->AddLog(mVDSettings->mMsg.c_str());
-		}
-	}
 }
-// From imgui by Omar Cornut
-void ServerApp::ShowAppConsole(bool* opened)
-{
-	mConsole->Run("Console", opened);
-}
-void ServerApp::mpeFrameRender(bool isNewFrame)
-{
-	gl::clear(Color(0.2, 0.0, 0.3));
-	// Your render code.
-}
+
 void ServerApp::keyDown(KeyEvent event)
 {
 

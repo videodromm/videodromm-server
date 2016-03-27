@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<settings>
+	<AutoLayout value="1"/>
+	<Standalone value="0"/>
+	<MainWindowWidth value="1280"/>
+	<MainWindowHeight value="720"/>
+	<MainWindowX value="0"/>
+	<MainWindowY value="0"/>
+	<RenderWidth value="1024"/>
+	<RenderHeight value="768"/>
+	<RenderX value="0"/>
+	<RenderY value="0"/>
+	<AspectRatio value="0.75"/>
+	<FboWidth value="640"/>
+	<FboHeight value="480"/>
+	<MIDIEnabled value="0"/>
+	<OSCEnabled value="1"/>
+	<OSCReceiverPort value="7000"/>
+	<OSCDestinationPort value="7001"/>
+	<OSCDestinationHost value="127.0.0.1"/>
+	<OSCDestinationPort2 value="7002"/>
+	<OSCDestinationHost2 value="127.0.0.1"/>
+	<MIDIOpenAllInputPorts value="0"/>
+	<ShowUI value="1"/>
+	<CursorVisible value="1"/>
+	<IsOSCSender value="0"/>
+	<AreWebSocketsEnabledAtStartup value="1"/>
+	<IsRouter value="1"/>
+	<IsWebSocketsServer value="1"/>
+	<WebSocketsHost value="localhost"/>
+	<WebSocketsPort value="9002"/>
+	<FftSize value="512"/>
+	<WindowSize value="1024"/>
+	<Info value=""/>
+	<AssetsPath value="sky"/>
+	<UseLineIn value="0"/>
+	<SplitWarpH value="0"/>
+	<SplitWarpV value="0"/>
+</settings>
+
