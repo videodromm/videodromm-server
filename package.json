@@ -1,0 +1,14 @@
+{
+  "name": "videodromm-server",
+  "version": "0.0.1",
+  "description": "videodromm-server",
+  "main": "server.js",
+  "author": {
+    "name": "jarpi,brucelane,azopcorp",
+    "email": "bruce@batchass.fr"
+  },
+  "dependencies": {
+    "uuid": "^2.0.3",
+    "ws": "^1.1.1"
+  }
+}
