@@ -32,7 +32,10 @@
   </PropertyGroup>
   <ItemGroup>
     <Compile Include="server.js" />
+    <Compile Include="src\www\js\websocket-lib\ws.js" />
     <None Include="videodromm-server - Web Deploy.pubxml" />
+    <Content Include="src\www\favicon.ico" />
+    <Content Include="src\www\index.html" />
     <Content Include="Web.config" />
     <Content Include="Web.Debug.config" />
     <Content Include="bin\ChangeConfig.ps1" />
@@ -44,6 +47,10 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="bin\" />
+    <Folder Include="src\" />
+    <Folder Include="src\www\" />
+    <Folder Include="src\www\js\" />
+    <Folder Include="src\www\js\websocket-lib\" />
   </ItemGroup>
   <!-- Do not delete the following Import Project.  While this appears to do nothing it is a marker for setting TypeScript properties before our import that depends on them. -->
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)\TypeScript\Microsoft.TypeScript.targets" Condition="False" />

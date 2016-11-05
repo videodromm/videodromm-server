@@ -2,8 +2,8 @@
 
 var express = require('express'),
 	app = express(),
-	nodemon = require('nodemon'),
-	winston = require('winston'),
+	//nodemon = require('nodemon'),
+	//winston = require('winston'),
 	http = require('http').Server(app),
 	uuid = require('uuid'),
 	WebSocketServer = require('ws').Server,
@@ -26,10 +26,10 @@ wss.on('connection', function (socket) {
 // TODO: REFACTOR
 wss.broadcast = function (msg, sender) {
 	wss.clients.forEach(function (client) {
-		if (client.id !== sender) client.send(msg) & winston.info('Message sent!');
+		if (client.id !== sender) client.send(msg);// & winston.info('Message sent!');
 	});
 }
 
 http.listen(process.env.port || 8080, function () {
-	winston.info('Application server running!');
+	//winston.info('Application server running!');
 });
