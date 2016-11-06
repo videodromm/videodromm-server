@@ -40,7 +40,7 @@
 </script>
 
 <script>
-        window.socket = new ws('ws://localhost:8088');
+        window.socket = new ws('ws://videodromm-server.azurewebsites.net:80');
         window.socket.on('frag', function(evt) {
             $('#code').val(evt.data);
             $('#code').trigger('change', [false]);
