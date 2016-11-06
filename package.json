@@ -3,15 +3,21 @@
   "version": "0.0.1",
   "description": "videodromm-server",
   "main": "index.js",
-  "scripts":{ "start": "node_modules/nodemon/bin/nodemon.js index.js" },
+  "scripts": {
+    "start": "node_modules/nodemon/bin/nodemon.js index.js"
+  },
   "author": {
     "name": "jarpi,brucelane,azopcorp",
     "email": "jarpidev@gmail.com,bruce@batchass.fr"
   },
   "dependencies": {
-	"nodemon": "^1.11.0",
-	"winston": "^2.2.0",
+    "nodemon": "^1.11.0",
+    "winston": "^2.2.0",
     "uuid": "^2.0.3",
     "ws": "^1.1.1"
+  },
+  "devDependencies": {
+    "chai": "^3.5.0",
+    "mocha": "^3.1.2"
   }
 }
