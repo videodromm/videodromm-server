@@ -11,9 +11,10 @@
     "email": "jarpidev@gmail.com,bruce@batchass.fr"
   },
   "dependencies": {
+    "express": "^4.14.0",
     "nodemon": "^1.11.0",
-    "winston": "^2.2.0",
     "uuid": "^2.0.3",
+    "winston": "^2.2.0",
     "ws": "^1.1.1"
   },
   "devDependencies": {

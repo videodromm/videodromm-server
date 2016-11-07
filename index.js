@@ -11,6 +11,6 @@ var express = require('express'),
 http.listen(port, function() {
     winston.info('Application server running!');
     new wss(this, winston, function(err){
-        if (!err) winston.info('Websocket listening!');
+        if (!err) winston.info('Websocket listening on port ' + port);
     });
 });
