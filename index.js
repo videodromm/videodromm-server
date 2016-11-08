@@ -1,10 +1,8 @@
 'use strict'
 
-var express = require('express'),
-    app = express(),
-    nodemon = require('nodemon'),
+    var nodemon = require('nodemon'),
     winston = require('winston'),
-    http = require('http').Server(app),
+    http = require('http'),
     wss = require('./src/ws.js'),
     port = process.env.port || 8088;
 
