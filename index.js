@@ -2,7 +2,7 @@
 
     var nodemon = require('nodemon'),
     winston = require('winston'),
-    http = require('http'),
+    http = require('http').createServer(),
     wss = require('./src/ws.js'),
     port = process.env.port || 8088;
 
