@@ -4,7 +4,7 @@
   "description": "videodromm-server",
   "main": "index.js",
   "scripts": {
-    "start": "node_modules/nodemon/bin/nodemon.js index.js"
+    "start": "node node_modules/nodemon/bin/nodemon.js index.js"
   },
   "author": {
     "name": "jarpi,brucelane,azopcorp",
