@@ -8,7 +8,7 @@ function wsCtrl ( httpListener, logger, cb ) {
     var that = this;
     this.wss.broadcast = function(msg, sender) {
         that.wss.clients.forEach(function(client){
-            if (client.id !== sender) client.send(msg) & logger.info('Message sent!');
+            if (client.id !== sender) client.send(msg) & logger.info('Message sent to ' + client.id + ' from ' + sender);
         });
     }
     this.wss.on('connection', function(socket){
@@ -18,7 +18,7 @@ function wsCtrl ( httpListener, logger, cb ) {
         logger.info('user disconnected');
       });
       socket.on('message', function(msg){
-        logger.info('Message received');
+        logger.info('Message received:' + msg);
         that.wss.broadcast(msg, socket.id);
       });
     });
